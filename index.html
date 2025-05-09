@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Professionele LLM Chat applicatie met ondersteuning voor meerdere AI providers">
+    <title>Professionele LLM Chat</title>
+    <link rel="stylesheet" href="stylesheets/root.css">
+    <link rel="stylesheet" href="stylesheets/reset.css">
+    <link rel="stylesheet" href="stylesheets/components/dots.css">
+    <link rel="stylesheet" href="stylesheets/components/switch.css">
+    <link rel="stylesheet" href="stylesheets/components/dropdown.css">
+    <link rel="stylesheet" href="stylesheets/components/input-chat.css">
+    <link rel="stylesheet" href="stylesheets/components/provider-dropdown.css">
+    <link rel="stylesheet" href="stylesheets/components/conversation-menu-dropdown.css">
+    <link rel="stylesheet" href="stylesheet.css">
+    <link rel="icon" href="./icon/icon2.ico" type="image/x-icon">
+</head>
+
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <button class="new-chat" id="newConversation">
+            <span>Nieuw gesprek</span>
+            <span class="new-chat-icon">+</span>
+        </button>
+
+        <nav class="conversations scroller" id="conversationsList">
+            <!-- Conversations will be dynamically added here -->
+        </nav>
+
+        <section class="sidebar-settings">
+            <!-- <div class="theme-switch">
+                <label class="switch" for="themeToggle">
+                    <input type="checkbox" id="themeToggle" aria-label="Donker thema schakelen">
+                    <span class="slider"></span>
+                </label>
+                <span class="theme-switch-label">Donker thema</span>
+            </div> -->
+        </section>
+    </aside>
+
+    <!-- Main content -->
+    <main class="main-content">
+        <header class="chat-header">
+            <div class="provider-selector">
+                <button id="providerDropdownButton" class="provider-dropdown-button">
+                    <span id="currentProvider">Gemini</span>
+                    <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 1L5 5L9 1" stroke="#666666" stroke-width="1.5" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </button>
+
+                <div id="providerDropdown" class="provider-dropdown-content">
+                    <div class="provider-dropdown-item" data-provider="gemini">
+                        <span>Gemini</span>
+                    </div>
+                    <div class="provider-dropdown-item" data-provider="openai">
+                        <span>OpenAI</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="conversation-menu-dropdown">
+                <button class="conversation-menu-dropdown-button" id="conversationMenuButton" aria-label="Menu openen">
+                    ☰
+                </button>
+                <div class="conversation-menu-dropdown-content" id="conversationMenuDropdown">
+                    <button class="conversation-menu-dropdown-item" id="exportButton">
+                        <div aria-hidden="true">📤</div>
+                        <span>Export</span>
+                    </button>
+                    <div class="divider" role="separator"></div>
+                    <button class="conversation-menu-dropdown-item" id="clearButton">
+                        <div aria-hidden="true">🗑️</div>
+                        <span>Clear</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <section class="chat-container scroller" id="chatContainer">
+            <!-- Messages will be dynamically inserted here -->
+        </section>
+
+
+        <div class="chat-relative">
+            <div class="chat-center">
+                <div class="chat-input-container">
+                    <div class="chat-textarea-wrapper">
+                        <textarea id="message-input" placeholder="Type your message ..."></textarea>
+                    </div>
+
+                    <div class="controls-container chat-dropdown">
+                        <div id="chatOptions" class="left-controls">
+                            <button id="personaDropdownButton" class="chat-dropdown-button">
+                                <span id="currentPersona" class="chat-dropdown">Default</span>
+                                <svg width="10" height="6" viewBox="0 0 10 6" fill="none" class="chat-dropdown"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1 1L5 5L9 1" stroke="#666666" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </button>
+
+                            <div id="personaDropdown" class="chat-dropdown-content">
+                                <!-- personas will be dynamically inserted here -->
+                            </div>
+
+                            <!-- <button id="analystTasks" class="task-button">Analyst Tasks</button> -->
+                            <!-- <button id="developerTasks" class="task-button">Developer Tasks</button> -->
+                        </div>
+
+                        <button id="send-chat-message-button" class="send-chat-message-button">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path d="M22 2L11 13" stroke="white" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" />
+                                <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="white" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <!-- Providers -->
+    <script type="module" src="js/env/env.js"></script>
+
+    <script type="module" src="js/providers/openai.js"></script>
+    <script type="module" src="js/providers/gemini.js"></script>
+
+    <script type="module" src="js/persona/default.js"></script>
+    <script type="module" src="js/persona/developer.js"></script>
+    <script type="module" src="js/persona/analist.js"></script>
+
+    <!-- Core application modules -->
+    <script type="module" src="js/state.js"></script>
+    <script type="module" src="js/element.js"></script>
+    <script type="module" src="js/theme.js"></script>
+    <script type="module" src="js/conversation.js"></script>
+    <script type="module" src="js/profiles.js"></script>
+    <script type="module" src="js/personas.js"></script>
+    <script type="module" src="js/task.js"></script>
+    <script type="module" src="js/provider.js"></script>
+    <script type="module" src="js/message.js"></script>
+    <script type="module" src="js/config.js"></script>
+
+    <!-- Main application script -->
+    <script type="module" src="js/app.js"></script>
+</body>
+
+</html>
