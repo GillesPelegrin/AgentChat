@@ -1,7 +1,3 @@
-Here’s a `README.md` for your **AgentChat** JavaScript application:
-
----
-
 # AgentChat
 
 **AgentChat** is a lightweight and extensible JavaScript application that serves as a wrapper around popular large language models (LLMs) like ChatGPT and Gemini. It allows users to initiate structured conversations with predefined personas to accomplish specific tasks.
