@@ -1,10 +1,10 @@
 
 import { getElements as elements } from "./element.js";
 import { saveStateToLocalStorage } from "./localStorage.js";
+import { renderMessage } from "./message.js";
 import { updatePersonaFromState } from "./personas.js";
 import { getState as state } from "./state.js";
 import { updateTaskFromState } from "./task.js";
-import { renderMessage } from "./message.js";
 
 
 
@@ -73,9 +73,10 @@ export function renderCurrentConversation() {
     if (!conversation) {
         createConversation()
         conversation = getCurrentConversation();
+    } else {
+        elements().chatContainer.innerHTML = '';
     }
 
-    elements().chatContainer.innerHTML = '';
 
     conversation.messages.forEach(message => {
         renderMessage(message);
@@ -117,12 +118,12 @@ export function clearConversation() {
     if (!getCurrentConversation()) return;
 
     // if (confirm('Weet je zeker dat je dit gesprek wilt wissen?')) {
-        state().conversations = state().conversations.filter(c => c.id !== state().currentConversationId);
-        state().currentConversationId = state().conversations.length > 0 ? state().conversations[0].id : null;
+    state().conversations = state().conversations.filter(c => c.id !== state().currentConversationId);
+    state().currentConversationId = state().conversations.length > 0 ? state().conversations[0].id : null;
 
-        renderConversationsList();
-        renderCurrentConversation();
-        saveStateToLocalStorage();
+    renderConversationsList();
+    renderCurrentConversation();
+    saveStateToLocalStorage();
     // }
 }
 
@@ -138,7 +139,26 @@ export function createConversationWithRender() {
     renderConversationsList();
     renderCurrentConversation();
 
+    if(elements().welcomeText !== undefined) {
+        showWelcomeText()
+    }
+
     return newConversation;
+}
+
+function showWelcomeText() {
+console.log("add welcomeText ")
+
+    elements().chatContainer.innerHTML = `
+    <div class="welcome-message welcomeText" >
+        <h2>Hey there, lets talk!</h2>
+        <p>Choose your agent and what you want to do — the floor is yours.</p>
+    </div>
+`;
+}
+
+export function removeWelcomeText() {
+     elements().chatContainer.innerHTML = ``
 }
 
 

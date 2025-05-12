@@ -1,10 +1,11 @@
-import { getElements as elements } from "./element.js"
-import { callGemini } from "./providers/gemini.js"
-import { callOpenAi } from "./providers/openai.js"
-import { getState as state } from "./state.js"
+import { createConversation, getCurrentConversation, renderConversationsList } from "./conversation.js";
+import { getElements as elements } from "./element.js";
 import { saveStateToLocalStorage } from "./localStorage.js";
-import { getCurrentConversation, renderConversationsList, createConversation } from "./conversation.js";
+import { convertToHtml } from "./markdown.js";
 import { getPersonas } from "./personas.js";
+import { callGemini } from "./providers/gemini.js";
+import { callOpenAi } from "./providers/openai.js";
+import { getState as state } from "./state.js";
 
 
 export function initMessage() {
@@ -27,58 +28,19 @@ export function initSendChatMessageWithKeyDown() {
 
 
 export function renderMessage(message) {
-    const messageEl = document.createElement('div');
-    messageEl.className = `message ${message.role}`;
 
-    // const avatar = document.createElement('div');
-    // avatar.className = 'avatar';
-    // avatar.textContent = message.role === 'user' ? 'U' : 'A';
-
-    const contentEl = document.createElement('div');
-    contentEl.className = 'message-content';
-
-    // Convert markdown-like syntax to HTML
-    let content = message.content;
-
-    // Code blocks (```code```)
-    content = content.replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
-
-    // Inline code (`code`)
-    content = content.replace(/`([^`]+)`/g, '<code>$1</code>');
-
-    // Bold (**text**)
-    content = content.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-
-    // Italic (*text*)
-    content = content.replace(/\*(.*?)\*/g, '<em>$1</em>');
-
-    // Headers (# Header)
-    content = content.replace(/^# (.*?)$/gm, '<h1>$1</h1>');
-    content = content.replace(/^## (.*?)$/gm, '<h2>$1</h2>');
-    content = content.replace(/^### (.*?)$/gm, '<h3>$1</h3>');
-
-    // Lists
-    content = content.replace(/(^- .*?$\n?)+/gm, function (match) {
-        // For each matched list section, wrap each item with <li> and the whole list with <ul>
-        const listItems = match.split('\n').filter(Boolean).map(item => {
-            return '<li>' + item.substring(2) + '</li>'; // Remove the "- " prefix
-        }).join('');
-
-        return '<ul>' + listItems + '</ul>';
-    });
-
-    // Paragraphs
-    content = content.replace(/(?:\r\n|\r|\n){2,}/g, '</p><p>');
-    content = '<p>' + content + '</p>';
-
-    contentEl.innerHTML = content;
-
-    // messageEl.appendChild(avatar);
-    messageEl.appendChild(contentEl);
-    elements().chatContainer.appendChild(messageEl);
+    elements().chatContainer.appendChild(convertToHtml(message));
 }
 
 export function sendMessage() {
+
+    // Remove the welcome message at the start
+    if (elements().welcomeText !== undefined) {
+        const elements = document.getElementsByClassName("welcomeText");
+        while (elements.length > 0) {
+            elements[0].remove();
+        }
+    }
 
     if (elements().messageInput.value.trim() === '' || state().isProcessing || !state().apiKey) {
         return;
@@ -110,8 +72,8 @@ export function sendMessage() {
 
     // Show loading indicator
     const loadingEl = document.createElement('div');
-    loadingEl.className = 'loading-dots';
-    loadingEl.innerHTML = '<div class="dot"></div><div class="dot"></div><div class="dot"></div>';
+    loadingEl.className = 'message assistant';
+    loadingEl.innerHTML = '<div class="message-content"><div class="message-skeleton"></div></div>';
     elements().chatContainer.appendChild(loadingEl);
     elements().chatContainer.scrollTop = elements().chatContainer.scrollHeight;
 
@@ -140,6 +102,7 @@ export function sendMessage() {
     // Call the appropriate API based on provider
     callLlmApi(conversation.provider, conversation.model, apiMessages)
         .then(responseContent => {
+
             // Remove loading indicator
             elements().chatContainer.removeChild(loadingEl);
 

@@ -6,6 +6,7 @@ import { visualizeTask } from "./task.js";
 import { getAnalistPersona } from "./persona/analist.js";
 import { getDefaultPersona } from "./persona/default.js";
 import { getDeveloperPersona } from "./persona/developer.js";
+import { getPromtMasterPersona } from "./persona/promptMaster.js";
 
 
 export function initPersonas() {
@@ -78,5 +79,5 @@ function capitalizeFirstLetter(val) {
 }
 
 export function getPersonas() {
-    return { ...getAnalistPersona(), ...getDefaultPersona(), ...getDeveloperPersona() }
+    return { ...getAnalistPersona(), ...getDefaultPersona(), ...getDeveloperPersona(), ...getPromtMasterPersona() }
 }

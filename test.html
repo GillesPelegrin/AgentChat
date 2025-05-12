@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Chat Skeleton Loader</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0; padding: 0;
+      display: flex; flex-direction: column;
+      height: 100vh;
+    }
+    .chat-container {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      background: #f4f4f4;
+    }
+    .message {
+      background: #fff;
+      padding: 10px 15px;
+      border-radius: 10px;
+      margin: 10px 0;
+      max-width: 60%;
+    }
+    .user { align-self: flex-end; background: #dcf8c6; }
+    .assistant { align-self: flex-start; background: #fff; }
+
+    .input-container {
+      display: flex;
+      padding: 10px;
+      border-top: 1px solid #ccc;
+    }
+
+    input {
+      flex: 1;
+      padding: 10px;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 10px 15px;
+      font-size: 16px;
+    }
+
+    /* Skeleton loader */
+    .skeleton {
+      background: #e0e0e0;
+      border-radius: 10px;
+      padding: 10px 15px;
+      max-width: 60%;
+      margin: 10px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .skeleton::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      height: 100%; width: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+      animation: loading 1.2s infinite;
+    }
+
+    @keyframes loading {
+      100% {
+        left: 100%;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="chat-container" id="chat"></div>
+
+  <div class="input-container">
+    <input type="text" id="input" placeholder="Type a message...">
+    <button onclick="sendMessage()">Send</button>
+  </div>
+
+  <script>
+    const chat = document.getElementById('chat');
+
+    function appendMessage(content, className) {
+      const div = document.createElement('div');
+      div.className = `message ${className}`;
+      div.textContent = content;
+      chat.appendChild(div);
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    function appendSkeleton() {
+      const div = document.createElement('div');
+      div.className = 'skeleton assistant';
+      div.id = 'skeleton';
+      chat.appendChild(div);
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    function replaceSkeletonWithResponse(text) {
+      const skeleton = document.getElementById('skeleton');
+      if (skeleton) {
+        skeleton.remove();
+        appendMessage(text, 'assistant');
+      }
+    }
+
+    function sendMessage() {
+      const input = document.getElementById('input');
+      const message = input.value.trim();
+      if (!message) return;
+
+      appendMessage(message, 'user');
+      input.value = '';
+
+      appendSkeleton();
+
+      // Simulate API call
+      setTimeout(() => {
+        const fakeResponse = "This is a fake assistant response.";
+        replaceSkeletonWithResponse(fakeResponse);
+      }, 2000); // 2-second fake loading
+    }
+  </script>
+
+</body>
+</html>

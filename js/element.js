@@ -3,6 +3,7 @@ let elements;
 
 export function initElements() {
     elements =  {
+        welcomeText: document.getElementById('welcomeText'),
         newConversation: document.getElementById('newConversation'),
         conversationsList: document.getElementById('conversationsList'),
         taskSelect: document.getElementById('taskSelect'),

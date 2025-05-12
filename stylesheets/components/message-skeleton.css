@@ -1,0 +1,29 @@
+.message-skeleton {
+    background: #e0e0e0;
+      border-radius: 10px;
+      padding: 10px 15px;
+      max-width: 20vw;
+      min-width: 15rem;
+      height: 5vh;
+      margin: 10px 0;
+      position: relative;
+      overflow: hidden;
+
+}
+
+
+.message-skeleton::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    height: 100%; width: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    animation: loading 2s infinite;
+  }
+
+
+  @keyframes loading {
+    100% {
+      left: 100%;
+    }
+  }
