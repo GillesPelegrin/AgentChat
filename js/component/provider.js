@@ -1,15 +1,13 @@
-import { getElements as elements } from "./element.js";
-import { saveStateToLocalStorage } from "./localStorage.js";
-import { getState as state } from "./state.js";
-import { getEnv } from "./env/env.js";
-
+import { getElements as elements } from "../element.js";
+import { getEnv } from "../env/env.js";
+import { saveStateToLocalStorage } from "../localStorage.js";
+import { getState as state } from "../state.js";
 
 
 export function initProvider() {
     addEventListenerToProviderDropdown()
     loadApiKey()
 }
-
 
 function loadApiKey() {
     state().apiKey = getEnv()[state().selectedProvider];
@@ -22,10 +20,10 @@ export function addEventListenerToProviderDropdown() {
         elements().providerDropdown.classList.toggle('show');
     });
 
+
     // Close dropdown when clicking outside
     window.addEventListener('click', (event) => {
-        // !event.target.parentElement.matches('.chat-dropdown-button')
-        if (!event.target.matches('.provider-dropdown-button')) {
+        if (!event.target.matches('[class^="provider-dropdown"]')) {
             elements().providerDropdown.classList.remove('show');
         }
     });

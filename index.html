@@ -34,6 +34,9 @@
             </div>
         </div>
 
+        <section class="conversation-header">
+            History
+        </section>
         <nav class="conversations scroller" id="conversationsList">
             <!-- Conversations will be dynamically added here -->
         </nav>
@@ -52,9 +55,9 @@
     <!-- Main content -->
     <main class="main-content">
         <header class="chat-header">
-            <div class="provider-selector">
+            <div class="provider-selector provider-dropdown">
                 <button id="providerDropdownButton" class="provider-dropdown-button">
-                    <span id="currentProvider">Gemini</span>
+                    <span id="currentProvider provider-dropdown">Gemini</span>
                     <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M1 1L5 5L9 1" stroke="#666666" stroke-width="1.5" stroke-linecap="round"
                             stroke-linejoin="round" />
@@ -156,12 +159,11 @@
     <script type="module" src="js/state.js"></script>
     <script type="module" src="js/element.js"></script>
     <script type="module" src="js/theme.js"></script>
-    <script type="module" src="js/conversation.js"></script>
-    <script type="module" src="js/profiles.js"></script>
-    <script type="module" src="js/personas.js"></script>
-    <script type="module" src="js/task.js"></script>
-    <script type="module" src="js/provider.js"></script>
-    <script type="module" src="js/message.js"></script>
+    <script type="module" src="js/comonent/conversation.js"></script>
+    <script type="module" src="js/comonent/personas.js"></script>
+    <script type="module" src="js/comonent/task.js"></script>
+    <script type="module" src="js/comonent/provider.js"></script>
+    <script type="module" src="js/comonent/message.js"></script>
     <script type="module" src="js/config.js"></script>
 
     <!-- Main application script -->

@@ -1,12 +1,12 @@
 import { getCurrentConversation } from "./conversation.js";
-import { getElements as elements } from "./element.js";
-import { saveStateToLocalStorage } from "./localStorage.js";
+import { getElements as elements } from "../element.js";
+import { saveStateToLocalStorage } from "../localStorage.js";
 import { visualizeTask } from "./task.js";
 
-import { getAnalistPersona } from "./persona/analist.js";
-import { getDefaultPersona } from "./persona/default.js";
-import { getDeveloperPersona } from "./persona/developer.js";
-import { getPromtMasterPersona } from "./persona/promptMaster.js";
+import { getAnalistPersona } from "../persona/analist.js";
+import { getDefaultPersona } from "../persona/default.js";
+import { getDeveloperPersona } from "../persona/developer.js";
+import { getPromtMasterPersona } from "../persona/promptMaster.js";
 
 
 export function initPersonas() {

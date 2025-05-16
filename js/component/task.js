@@ -1,5 +1,5 @@
+import { getElements as elements } from "../element.js";
 import { getCurrentConversation } from "./conversation.js";
-import { getElements as elements } from "./element.js";
 import { getPersonas } from "./personas.js";
 
 
@@ -14,19 +14,17 @@ export function visualizeTask() {
     const conversation = getCurrentConversation();
     const tasks = getPersonas()[conversation.persona].tasks
 
-
     Object.keys(tasks).forEach(task => {
 
         const div = document.createElement("div")
         div.classList.add("task-button")
+
         const label = document.createElement("label")
-        // label.innerText = tasks[task].name;
         const taskElement = document.createElement("input");
-        // taskElement.className = "task-button show";
+
         taskElement.type = "checkbox";
         taskElement.classList.add("task-button-input")
         taskElement.id = "task-button-" + tasks[task].name;
-        // taskElement.innerText = tasks[task].name;
 
         label.appendChild(taskElement)
 
@@ -59,14 +57,4 @@ export function visualizeTask() {
 
         elements().chatOptions.appendChild(div)
     });
-}
-
-
-export function updateTaskFromState() {
-    const conversation = getCurrentConversation()
-    const task = conversation.task;
-
-    visualizeTask();
-
-
 }

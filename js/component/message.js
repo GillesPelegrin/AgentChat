@@ -1,11 +1,11 @@
 import { createConversation, getCurrentConversation, renderConversationsList } from "./conversation.js";
-import { getElements as elements } from "./element.js";
-import { saveStateToLocalStorage } from "./localStorage.js";
-import { convertToHtml } from "./markdown.js";
+import { getElements as elements } from "../element.js";
+import { saveStateToLocalStorage } from "../localStorage.js";
+import { convertToHtml } from "../markdown.js";
 import { getPersonas } from "./personas.js";
-import { callGemini } from "./providers/gemini.js";
-import { callOpenAi } from "./providers/openai.js";
-import { getState as state } from "./state.js";
+import { callGemini } from "../providers/gemini.js";
+import { callOpenAi } from "../providers/openai.js";
+import { getState as state } from "../state.js";
 
 
 export function initMessage() {

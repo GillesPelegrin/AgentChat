@@ -1,10 +1,10 @@
 
-import { getElements as elements } from "./element.js";
-import { saveStateToLocalStorage } from "./localStorage.js";
-import { renderMessage } from "./message.js";
+import { getElements as elements } from "../element.js";
+import { saveStateToLocalStorage } from "../localStorage.js";
+import { renderMessage } from "../message.js";
 import { updatePersonaFromState } from "./personas.js";
-import { getState as state } from "./state.js";
-import { updateTaskFromState } from "./task.js";
+import { getState as state } from "../state.js";
+import { visualizeTask } from "./task.js";
 
 
 
@@ -85,7 +85,7 @@ export function renderCurrentConversation() {
     // Scroll to bottom
     elements().chatContainer.scrollTop = elements().chatContainer.scrollHeight;
     updatePersonaFromState()
-    updateTaskFromState()
+    visualizeTask()
 }
 
 export function exportConversation() {
