@@ -1,7 +1,7 @@
 
 import { getElements as elements } from "../element.js";
 import { saveStateToLocalStorage } from "../localStorage.js";
-import { renderMessage } from "../message.js";
+import { renderMessage } from "./message.js";
 import { updatePersonaFromState } from "./personas.js";
 import { getState as state } from "../state.js";
 import { visualizeTask } from "./task.js";
@@ -153,6 +153,7 @@ console.log("add welcomeText ")
     <div class="welcome-message welcomeText" >
         <h2>Hey there, lets talk!</h2>
         <p>Choose your agent and what you want to do — the floor is yours.</p>
+        <img src="./icon/boy.png" width="200px" />
     </div>
 `;
 }

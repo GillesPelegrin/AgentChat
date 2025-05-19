@@ -160,6 +160,10 @@ async function callLlmApi(provider, model, messages) {
             return await callOpenAi(model, messages, state)
         } else if (provider === 'gemini') {
             return await callGemini(model, messages, state)
+        } else if (provider === 'ollama') {
+            throw Error("not implemented")
+        } else if (provider === 'copilot') {
+            throw Error("not implemented")
         }
 
         // For other providers, we would implement their specific API calls

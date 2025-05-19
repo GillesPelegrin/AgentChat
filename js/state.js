@@ -11,7 +11,16 @@ let state = {
         gemini: {
             name: 'Google Gemini',
             default: 'gemini-2.0-flash',
+        },
+        ollama: {
+            name: 'Ollama',
+            default: ' ',
+        },
+        copilot: {
+            name: 'Copilot',
+            default: '',
         }
+
     },
     selectedProvider: 'gemini',
     selectedModel: 'gemini-2.0-flash',

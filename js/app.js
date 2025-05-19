@@ -1,10 +1,10 @@
 
-import { initConversation } from "./conversation.js"
+import { initConversation } from "./component/conversation.js"
 import { initElements } from "./element.js"
 import { loadStateFromLocalStorage } from "./localStorage.js"
-import { initMessage } from "./message.js"
-import { initPersonas } from "./personas.js"
-import { initProvider } from "./provider.js"
+import { initMessage } from "./component/message.js"
+import { initPersonas } from "./component/personas.js"
+import { initProvider } from "./component/provider.js"
 
 // Initialize application
 function init() {

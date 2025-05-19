@@ -53,6 +53,7 @@
 
 .top-navbar .create-conversartion:hover {
     background-color: var(--color-gray-200);
+    cursor: pointer;
 }
 
 .new-chat {
@@ -115,7 +116,7 @@
 }
 
 .sidebar-settings {
-    padding: var(--spacing-lg);
+    padding: var(--spacing-sm);
     border-top: 1px solid var(--color-gray-200);
 }
 
@@ -128,6 +129,24 @@
     font-weight: 600;
     margin-bottom: var(--spacing-sm);
     color: var(--color-gray-500);
+}
+
+.sidebar-settings .admin-icon {
+    padding: var(--spacing-sm);
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    display: inline-block;
+    color: var(--color-gray-600);
+}
+
+.sidebar-settings .admin-icon svg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sidebar-settings .admin-icon:hover {
+    background-color: var(--color-gray-200);
 }
 
 
@@ -208,9 +227,10 @@ select:hover {
 .chat-container {
     flex: 1;
     overflow-y: auto;
-    padding: var(--spacing-xl);
+    padding: 5vh 10vw;
     margin-bottom: 110px;
     background-color: var(--color-white);
+    /* max-width: 60vw; */
 }
 
 .welcome-message {
@@ -233,7 +253,7 @@ select:hover {
     max-width: 100%;
     margin-bottom: var(--spacing-xl);
     display: flex;
-    margin: 0 4rem;
+    /* margin: 0 4rem; */
 }
 
 .message.user {
@@ -248,8 +268,8 @@ select:hover {
     position: relative;
     font-size: 15px;
     line-height: 1.5;
-    margin: 0 5vw;
-    max-width: 60vw;
+    /* margin: 0 5vw; */
+    /* max-width: 60vw; */
 }
 
 .message-content pre {
@@ -269,10 +289,7 @@ select:hover {
 }
 
 .assistant .message-content {
-    background-color: var(--color-white);
-    /* border-top-left-radius: var(--border-radius-sm); */
-    /* border: 1px solid var(--color-gray-200); */
-    border: 1px solid var(--color-white);
+    margin: 32px 0;
     box-shadow: none;
 }
 
@@ -285,7 +302,7 @@ pre {
     border-radius: var(--border-radius-md);
     overflow-x: auto;
     margin: var(--spacing-sm) 0;
-    text-wrap: auto ;
+    text-wrap: auto;
 }
 
 code {
@@ -398,6 +415,12 @@ code {
 
 .scroller {
     scrollbar-color: var(--color-gray-200) var(--color-gray-100);
+}
+
+
+.flex {
+    display: flex;
+    gap: 1rem
 }
 
 
