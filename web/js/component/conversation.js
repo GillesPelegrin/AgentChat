@@ -61,9 +61,25 @@ export function renderConversationsList() {
     });
 }
 
+export function getConversationOrCreate() {
+    let conversation = getCurrentConversation();
+    if (!conversation) {
+        conversation = createConversation();
+    }
+    return conversation;
+}
+
 
 export function getCurrentConversation() {
     return state().conversations.find(c => c.id === state().currentConversationId);
+}
+
+export function updateConversationTitleAndRerender(conversation, userMessage) {
+    // Update conversation title if this is the first message
+    if (conversation.messages.length === 1) {
+        conversation.title = userMessage.content.substring(0, 30) + (userMessage.content.length > 30 ? '...' : '');
+        renderConversationsList();
+    }
 }
 
 export function renderCurrentConversation() {

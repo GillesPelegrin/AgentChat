@@ -1,6 +1,3 @@
-
-
-
 export function getDeveloperPersona() {
     return {
         developer: {
@@ -27,3 +24,32 @@ export function getDeveloperPersona() {
         }
     }
 }
+
+
+
+
+/*
+
+What is a good technical user story ? 
+
+
+
+
+First step: [User]
+Requesting for a techniscal analyse based on the user story
+
+Second step: [Model]
+Asking which application are linked to the application
+
+
+-- You need to know , if it something new, an update of something, or an incident / bug
+-- 
+
+
+
+
+
+
+
+
+*/

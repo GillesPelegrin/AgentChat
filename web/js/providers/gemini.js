@@ -57,32 +57,47 @@ export function formatMessagesForGemini(messages) {
 }
 
 
-export async function listGeminiModels(apiKey) {
-    if (!apiKey) {
-        throw new Error('API key is required to list Gemini models');
-    }
+// export async function listGeminiModels(apiKey) {
+//     if (!apiKey) {
+//         throw new Error('API key is required to list Gemini models');
+//     }
 
-    try {
-        // Make a request to the Gemini ListModels endpoint
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        });
+//     try {
+//         // Make a request to the Gemini ListModels endpoint
+//         const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models?key=${apiKey}`, {
+//             method: 'GET',
+//             headers: {
+//                 'Content-Type': 'application/json'
+//             }
+//         });
 
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.error?.message || `Gemini API error: ${response.status}`);
-        }
+//         if (!response.ok) {
+//             const errorData = await response.json();
+//             throw new Error(errorData.error?.message || `Gemini API error: ${response.status}`);
+//         }
 
-        const data = await response.json();
+//         const data = await response.json();
 
-        // Return the full model list
-        return data.models || [];
-    } catch (error) {
-        console.error('Error fetching Gemini models:', error);
-        throw error;
-    }
-}
+//         // Return the full model list
+//         return data.models || [];
+//     } catch (error) {
+//         console.error('Error fetching Gemini models:', error);
+//         throw error;
+//     }
+// }
+
+
+
+
+
+
+
+
+/*
+
+
+
+
+
+*/
 

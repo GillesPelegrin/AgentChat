@@ -1,2 +1,7 @@
-env/
-node_modules/
+web/js/env/
+web/node_modules/
+web/docs/
+
+mcp/node_modules/
+mcp/test-client/node_modules/
+mcp/basic-mcp/node_modules/

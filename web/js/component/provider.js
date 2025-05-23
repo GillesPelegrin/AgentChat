@@ -3,6 +3,9 @@ import { getEnv } from "../env/env.js";
 import { saveStateToLocalStorage } from "../localStorage.js";
 import { getState as state } from "../state.js";
 
+import { callGemini } from "../providers/gemini.js";
+import { callOpenAi } from "../providers/openai.js";
+
 
 export function initProvider() {
     addEventListenerToProviderDropdown()
@@ -44,5 +47,24 @@ export function addEventListenerToProviderDropdown() {
 
         });
     });
+}
+
+export async function callProvider(provider, model, messages) {
+    try {
+        // Use OpenAI's API as an example
+        if (provider === 'openai') {
+            return await callOpenAi(model, messages, state)
+        } else if (provider === 'gemini') {
+            return await callGemini(model, messages, state)
+        } else if (provider === 'ollama') {
+            throw Error("not implemented")
+        } else if (provider === 'copilot') {
+            throw Error("not implemented")
+        }
+
+    } catch (error) {
+        console.error('API error:', error);
+        throw error;
+    }
 }
 

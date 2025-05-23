@@ -1,0 +1,24 @@
+{
+  "name": "langchain-mcp-client",
+  "version": "0.1.0",
+  "description": "LangChain client for MCP server with Ollama integration",
+  "main": "client.js",
+  "scripts": {
+    "start": "node client.js",
+    "dev": "nodemon client.js"
+  },
+  "dependencies": {
+    "@langchain/ollama": "^0.0.4",
+    "@modelcontextprotocol/sdk": "^0.4.0",
+    "langchain": "^0.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": ["langchain", "mcp", "ollama", "ai"],
+  "author": "Your Name",
+  "license": "MIT"
+}

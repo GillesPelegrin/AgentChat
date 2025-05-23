@@ -45,3 +45,38 @@ export function getAnalistPersona() {
     }
 }
 
+/*
+
+Instead of creating one big task you should chain it
+
+A Task is a chain instead something you just add.
+
+
+
+Also one problem is that the task is and the persona is repeated for every message!
+This should only be done ones at the start, or when the persona changes 
+
+
+First step:  [User]
+A user gives a small description or a copy from a conversation.
+
+Second step:  [Model]
+The model should ask specific question these can pre defined.
+
+Third step:  [User]
+The user response on the question which should make it clearder what need to be done
+
+Fourth step:  [Model]
+The model gathers all the info format it in a clear way
+
+--- Add a RAG hydration here with domain knowledge, but ask the user of it is valid
+
+Fifth step: [Model]
+A standard As a, I want, so that is created from the description
+
+Sixth step: [Model]
+Creates a user story based on the description and the as, i want, so that
+
+
+*/
+
