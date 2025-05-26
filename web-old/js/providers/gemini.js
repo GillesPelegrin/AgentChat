@@ -1,5 +1,5 @@
-export async function callGemini(model, messages, state) {
-    const formattedMessages = formatMessagesForGemini(messages);
+export async function callGemini(model, messagesHistory, state) {
+    const formattedMessages = formatMessagesForGemini(messagesHistory);
 
     const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${state().apiKey}`, {
         method: 'POST',
@@ -31,11 +31,11 @@ export async function callGemini(model, messages, state) {
 }
 
 // Helper function to format messages for Gemini API
-export function formatMessagesForGemini(messages) {
+export function formatMessagesForGemini(messagesHistory) {
 
-    const persona = messages.filter(msg => msg.role === "system")[0]
+    const persona = messagesHistory.filter(msg => msg.role === "system")[0]
 
-    const contents = messages
+    const contents = messagesHistory
         .filter(msg => msg.role !== "system")
         .map(msg => {
             // Convert OpenAI format to Gemini format

@@ -1,7 +1,7 @@
 import { getElements as elements } from "../element.js";
 import { saveStateToLocalStorage } from "../localStorage.js";
 import { convertToHtml } from "../markdown.js";
-import { getConversationOrCreate, renderConversationsList, updateConversationTitleAndRerender } from "./conversation.js";
+import { getConversationOrCreate, updateConversationTitleAndRerender } from "./conversation.js";
 import { getPersonas } from "./personas.js";
 import { callProvider } from "./provider.js";
 
@@ -26,63 +26,28 @@ export function initSendChatMessageWithKeyDown() {
     });
 }
 
-
-export function renderMessage(message) {
-    elements().chatContainer.appendChild(convertToHtml(message));
-}
-
 export function sendMessage() {
 
-    // Remove the welcome message at the start
-    removeWelcomeMessageInChatContainer();
-
-    if (elements().messageInput.value.trim() === '' || state().isProcessing || !state().apiKey) {
-        return;
-    }
+    validateIfMessageCanBeSend()
 
     const conversation = getConversationOrCreate();
-    const userMessage = createMessageAndRerender(conversation, 'user', elements().messageInput.value.trim());
-
-    updateConversationTitleAndRerender(conversation, userMessage)
-
-    // Reset messageInput before user added something
-    resetMessageInput();
-
-    // Show loading indicator
-    const loadingEl = createLoadingIndicator();
-
+    const userMessage = addNewMessageToConversation(conversation, elements().messageInput.value.trim())
+    const apiMessages = createMessageHistoryBasedOnConversation(conversation)
     state().isProcessing = true;
-    updateSendButtonState();
 
-    // Prepare conversation for API
-    // const persona = getPersonas()[conversation.persona];
-    // const task = persona.tasks[conversation.task];
-
-    // Create system message with persona and task instructions
-    // let systemContent = persona.content;
-    // if (task && task.content) {
-    //     systemContent += '\n\n' + task.content;
-    // }
-
-    const apiMessages = [
-        // { role: 'system', content: systemContent }
-    ];
-
-    // Add conversation history
-    conversation.messages.forEach(msg => {
-        apiMessages.push({ role: msg.role, content: msg.content });
-    });
+    // Rerender everyting that's connected to sending a new or first message
+    render(conversation, userMessage)
 
     // Call the appropriate API based on provider
     callProvider(conversation.provider, conversation.model, apiMessages)
         .then(responseContent => {
             // Remove loading indicator
-            elements().chatContainer.removeChild(loadingEl);
+            removeLoadingIndicator()
             createMessageAndRerender(conversation, 'assistant', responseContent)
         })
         .catch(error => {
             // Remove loading indicator
-            elements().chatContainer.removeChild(loadingEl);
+            removeLoadingIndicator()
             createMessageAndRerender(conversation, 'assistant', `Er is een fout opgetreden: ${error.message}`)
         })
         .finally(() => {
@@ -94,13 +59,70 @@ export function sendMessage() {
         });
 }
 
+
+function render(conversation, userMessage) {
+    removeWelcomeMessageInChatContainer();
+    renderMessage(userMessage);
+    updateConversationTitleAndRerender(conversation, userMessage)
+    resetMessageInput();
+    updateSendButtonState();
+    createLoadingIndicator();
+}
+
+
+function validateIfMessageCanBeSend() {
+    if (elements().messageInput.value.trim() === '' || state().isProcessing || !state().apiKey) {
+        throw Error("Can not send message");
+    }
+}
+
+
+function addNewMessageToConversation(conversation, content) {
+    const userMessage = {
+        role: 'user',
+        content: content
+    };
+
+    conversation.messages.push(userMessage);
+
+    return userMessage
+}
+
+function createMessageHistoryBasedOnConversation(conversation) {
+
+    const persona = getPersonas()[conversation.persona];
+    let systemContent = persona.content;
+    // if (task && task.content) {
+    // systemContent += '\n\n' + task.content;
+    // }
+
+    const history = [
+        { role: 'system', content: systemContent }
+    ];
+
+    conversation.messages.forEach(msg => {
+        history.push({ role: msg.role, content: msg.content });
+    });
+
+    if (history.filter(msg => msg.role === 'system').length > 1) {
+        throw Error("multiple systemcontents in the history")
+    }
+
+    return history;
+}
+
 function createLoadingIndicator() {
     const loadingEl = document.createElement('div');
+    loadingEl.id = 'loading-indicator';
     loadingEl.className = 'message assistant';
     loadingEl.innerHTML = '<div class="message-content"><div class="message-skeleton"></div></div>';
     elements().chatContainer.appendChild(loadingEl);
     elements().chatContainer.scrollTop = elements().chatContainer.scrollHeight;
-    return loadingEl;
+}
+
+function removeLoadingIndicator() {
+    const loadingEl = document.getElementById('loading-indicator')
+    elements().chatContainer.removeChild(loadingEl);
 }
 
 function resetMessageInput() {
@@ -131,6 +153,10 @@ function removeWelcomeMessageInChatContainer() {
 
 export function updateSendButtonState() {
     elements().sendChatMessageButton.disabled = state().isProcessing;
+}
+
+export function renderMessage(message) {
+    elements().chatContainer.appendChild(convertToHtml(message));
 }
 
 

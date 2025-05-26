@@ -1,0 +1,9 @@
+[
+    {
+        "username": "postgres",
+        "password": "postgress",
+        "port": "5432",
+        "host": "localhost",
+        "database": "rag"
+    }
+]

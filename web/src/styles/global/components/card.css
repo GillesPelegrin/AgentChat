@@ -1,0 +1,27 @@
+/* Card Component */
+.card {
+    background-color: var(--color-bg);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-md);
+    margin: 20px;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .card:hover {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-title {
+    font-size: 16px;
+    font-weight: 600;
+    padding: 16px 20px;
+    border-bottom: 1px solid #F0F0F0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .card-content {
+    padding: 20px;
+  }

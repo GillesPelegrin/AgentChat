@@ -1,10 +1,11 @@
 import { getElements as elements } from "../element.js";
-import { getEnv } from "../env/env.js";
 import { saveStateToLocalStorage } from "../localStorage.js";
 import { getState as state } from "../state.js";
 
-import { callGemini } from "../providers/gemini.js";
+import { callGemini } from "../providers/gemini-second-version.js";
 import { callOpenAi } from "../providers/openai.js";
+
+import { PUBLIC_GEMINI_KEY, PUBLIC_OPENAI_KEY } from '$env/static/public';
 
 
 export function initProvider() {
@@ -13,7 +14,13 @@ export function initProvider() {
 }
 
 function loadApiKey() {
-    state().apiKey = getEnv()[state().selectedProvider];
+
+    if (state().selectedProvider == "gemini") {
+        state().apiKey = PUBLIC_GEMINI_KEY
+
+    } else if (state().selectedProvider == "openai") {
+        state().apiKey = PUBLIC_OPENAI_KEY
+    }
 }
 
 

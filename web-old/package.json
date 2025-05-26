@@ -1,0 +1,21 @@
+{
+  "name": "llm",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "http-server ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "type": "module",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  },
+  "dependencies": {
+    "@langchain/core": "^0.3.57",
+    "@langchain/google-genai": "^0.2.9",
+    "langchain": "^0.3.27"
+  }
+}
